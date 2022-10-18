@@ -6,8 +6,8 @@ int main(void){
                   ' ',' ',' '};
 
 
-    afficheTab(tab);
-    /*LIGNE
+    //afficheTab(tab);
+    /*
     poserCase(0, tab, 'O');
     poserCase(1, tab, 'O');
     poserCase(2, tab, 'O');
@@ -15,18 +15,17 @@ int main(void){
     printf("-%d\n", partie_fini(tab, 0,'O'));
     printf("-%d\n", partie_fini(tab, 1,'O'));
     printf("-%d\n", partie_fini(tab, 2,'O'));
-    */
+    
+   */
+    poserCase(2, tab, 'O');
+    poserCase(5, tab, 'O');
+    poserCase(8, tab, 'O');
 
-    poserCase(0, tab, 'O');
-    poserCase(3, tab, 'O');
-    poserCase(4, tab, 'O');
-
-    poserCase(6, tab, 'O');
    
-    printf("-%d\n", partie_fini(tab, 0,'O'));
-    printf("-%d\n", partie_fini(tab, 3,'O'));
-    printf("-%d\n", partie_fini(tab, 6,'O'));
-
+    printf("-%d\n", partie_fini(tab, 2,'O'));
+    printf("-%d\n", partie_fini(tab, 5,'O'));
+    printf("-%d\n", partie_fini(tab, 8,'O'));
+    
     afficheTab(tab);
 
     return 0;
