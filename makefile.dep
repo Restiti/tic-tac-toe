@@ -1,0 +1,4 @@
+menu.o: menu.c action.h main.h affichage.h
+main.o: main.c main.h affichage.h action.h
+action.o: action.c action.h main.h affichage.h
+affichage.o: affichage.c affichage.h main.h action.h
