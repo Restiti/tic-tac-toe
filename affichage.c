@@ -11,3 +11,8 @@ void afficheTab(char* tab){
         printf("|\n +-+-+\n");
     }
 }
+
+void menu(){
+    printf("Bienvenue sur le jeu du TIC-TAC-TOE\n");
+    printf("1. Partie 1VS1\n2. Joueur VS Ordinateur\n3. Ordinateur VS Ordinateur\n");
+}

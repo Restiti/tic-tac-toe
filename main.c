@@ -1,32 +1,53 @@
 #include "main.h"
+#define MAX_ENTREE 80
+
+void pvp(){
+    char tab[] = {' ',' ',' ',' ',' ',' ',' ',' ',' '};
+    int joueur[] = {'X', 'O'};
+    int case_joue = 0;
+    int tour = -1;
+    char choix[512] = ""; 
+
+    while (partie_fini(tab, case_joue, joueur[tour%2])){
+        ++tour;
+        system("clear");
+        afficheTab(tab);
+
+        printf("C'est au tour du joueur %d\n", tour%2 + 1);
+        fgets(choix, MAX_ENTREE, stdin);
+        case_joue = choix[0] - '0' - 1;
+        while (poserCase(case_joue, tab, joueur[tour%2])){
+            system("clear");
+            printf("La case est déjà prise\n");
+            afficheTab(tab);
+            fgets(choix, MAX_ENTREE, stdin);
+            case_joue = choix[0] - '0' + 1;
+        }
+    }
+    system("clear");
+    afficheTab(tab);
+    printf("Le joueur %d a gagné\n", tour%2 + 1);
+}
+
 
 int main(void){
-    char tab[] = {' ',' ',' ',
-                  ' ',' ',' ',
-                  ' ',' ',' '};
 
+    char choix[512] = ""; 
 
-    //afficheTab(tab);
-    /*
-    poserCase(0, tab, 'O');
-    poserCase(1, tab, 'O');
-    poserCase(2, tab, 'O');
+    do{
+        system("clear");
+        menu();
+        fgets(choix, MAX_ENTREE, stdin);
+    }while (!strstr(choix, "1")  && !strstr(choix, "2")  && !strstr(choix, "3") );
 
-    printf("-%d\n", partie_fini(tab, 0,'O'));
-    printf("-%d\n", partie_fini(tab, 1,'O'));
-    printf("-%d\n", partie_fini(tab, 2,'O'));
+    if (strstr(choix, "1")){
+        printf("PVP\n");
+        pvp();
+    }else if (strstr(choix, "2")){
+        printf("PVE\n");
+    }else{
+        printf("ORDI vs ORDI\n");
+    }
     
-   */
-    poserCase(2, tab, 'O');
-    poserCase(5, tab, 'O');
-    poserCase(8, tab, 'O');
-
-   
-    printf("-%d\n", partie_fini(tab, 2,'O'));
-    printf("-%d\n", partie_fini(tab, 5,'O'));
-    printf("-%d\n", partie_fini(tab, 8,'O'));
-    
-    afficheTab(tab);
-
     return 0;
 }
