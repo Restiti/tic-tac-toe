@@ -2,7 +2,7 @@
 #define MAX_ENTREE 80
 
 void pvp(){
-    int taille_tab = 5;
+    int taille_tab = 3;
     char* tab = malloc(sizeof(char) * taille_tab);
     initMap(tab, taille_tab);
 
@@ -11,7 +11,7 @@ void pvp(){
     int tour = -1;
     char choix[512] = ""; 
 
-    while (partie_fini(tab, case_joue, joueur[tour%2], taille_tab, tour)){
+    while (!partie_fini(tab, case_joue, joueur[tour%2], taille_tab, tour)){
         ++tour;
         system("clear");
         afficheTab(tab, taille_tab);
@@ -29,7 +29,13 @@ void pvp(){
     }
     system("clear");
     afficheTab(tab, taille_tab);
-    printf("Le joueur %d a gagné\n", tour%2 + 1);
+    if (partie_fini(tab, case_joue, joueur[tour%2], taille_tab, tour) == -1)
+    {
+        printf("Le joueur %d a gagné\n", tour%2 + 1);
+    }else{
+        printf("C'est une égalité\n");
+    }
+    
 }
 
 
