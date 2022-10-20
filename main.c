@@ -19,12 +19,20 @@ void pvp(){
         printf("C'est au tour du joueur %d\n", tour%2 + 1);
         fgets(choix, MAX_ENTREE, stdin);
         case_joue = atoi(choix) - 1;
-        while (poserCase(case_joue, tab, joueur[tour%2])){
+        int is_numeric = case_joue > 0 && case_joue < taille_tab * taille_tab -2;
+        while (poserCase(case_joue, tab, joueur[tour%2]) && !is_numeric){
             system("clear");
-            printf("La case est déjà prise\n");
+            if (!is_numeric){
+                printf("La saisie n'est pas valide\n");
+            }else{
+                printf("La case est déjà prise\n");
+            }
+            
             afficheTab(tab, taille_tab);
             fgets(choix, MAX_ENTREE, stdin);
             case_joue = atoi(choix) - 1;
+            is_numeric = case_joue > 0 && case_joue < taille_tab * taille_tab -2;
+
         }
     }
     system("clear");
