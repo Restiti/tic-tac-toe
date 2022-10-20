@@ -2,16 +2,19 @@
 #define MAX_ENTREE 80
 
 void pvp(){
-    char tab[] = {' ',' ',' ',' ',' ',' ',' ',' ',' '};
+    int taille_tab = 5;
+    char* tab = malloc(sizeof(char) * taille_tab);
+    initMap(tab, taille_tab);
+
     int joueur[] = {'X', 'O'};
     int case_joue = 0;
     int tour = -1;
     char choix[512] = ""; 
 
-    while (partie_fini(tab, case_joue, joueur[tour%2])){
+    while (partie_fini(tab, case_joue, joueur[tour%2], taille_tab, tour)){
         ++tour;
         system("clear");
-        afficheTab(tab);
+        afficheTab(tab, taille_tab);
 
         printf("C'est au tour du joueur %d\n", tour%2 + 1);
         fgets(choix, MAX_ENTREE, stdin);
@@ -19,13 +22,13 @@ void pvp(){
         while (poserCase(case_joue, tab, joueur[tour%2])){
             system("clear");
             printf("La case est déjà prise\n");
-            afficheTab(tab);
+            afficheTab(tab, taille_tab);
             fgets(choix, MAX_ENTREE, stdin);
             case_joue = choix[0] - '0' + 1;
         }
     }
     system("clear");
-    afficheTab(tab);
+    afficheTab(tab, taille_tab);
     printf("Le joueur %d a gagné\n", tour%2 + 1);
 }
 

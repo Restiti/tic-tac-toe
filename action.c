@@ -9,14 +9,17 @@ int poserCase(int num_case, char* tab, char pion){
     return -1;
 }
 
-int partie_fini(char* tab, int num_case, char pion){
+int partie_fini(char* tab, int num_case, char pion, int taille_tab, int tour){
+    
+    if(tour > taille_tab * taille_tab) return 0;
+    
     //Ligne
 
-    if(num_case%TAILLE_TAB == 0){
+    if(num_case%taille_tab == 0){
         if(tab[num_case+1] == pion && tab[num_case+2] == pion){
             return 0;
         }   
-    }else if(num_case%TAILLE_TAB == TAILLE_TAB-1){
+    }else if(num_case%taille_tab == taille_tab-1){
         if(tab[num_case-1] == pion && tab[num_case-2] == pion){
             return 0;
         }
@@ -25,15 +28,15 @@ int partie_fini(char* tab, int num_case, char pion){
     }
 
     //Colonne
-    if(num_case/TAILLE_TAB == 0){
-        if(tab[num_case+ TAILLE_TAB] == pion && tab[num_case + 2 * TAILLE_TAB] == pion){
+    if(num_case/taille_tab == 0){
+        if(tab[num_case+ taille_tab] == pion && tab[num_case + 2 * taille_tab] == pion){
             return 0;
         }
-    }else if(num_case/TAILLE_TAB == TAILLE_TAB-1){
-        if(tab[num_case-1*TAILLE_TAB] == pion && tab[num_case-2*TAILLE_TAB] == pion){
+    }else if(num_case/taille_tab == taille_tab-1){
+        if(tab[num_case-1*taille_tab] == pion && tab[num_case-2*taille_tab] == pion){
             return 0;
         }
-    }else if(tab[num_case-1*TAILLE_TAB] == pion && tab[num_case+1*TAILLE_TAB] == pion){
+    }else if(tab[num_case-1*taille_tab] == pion && tab[num_case+1*taille_tab] == pion){
             return 0;
         
     }
@@ -45,4 +48,11 @@ int partie_fini(char* tab, int num_case, char pion){
     */
     
     return -1;
+}
+
+void initMap(char* tab, int taille){
+
+    for (int i = 0; i < taille*taille; i++){
+            tab[i] = ' ';
+    }
 }

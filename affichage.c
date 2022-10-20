@@ -1,14 +1,26 @@
 #include "affichage.h"
 #include "main.h"
 
-void afficheTab(char* tab){
-    printf(" +-+-+\n");
-    for (int i = 0; i < TAILLE_TAB; i++){
-        for (int j = 0; j < TAILLE_TAB; j++)
+void afficheTab(char* tab,int taille){
+    printf("+");
+    for (int i = 0; i < taille; i++)
+    {
+        printf("-+");
+    }
+    printf("\n");
+    
+
+    for (int i = 0; i < taille; i++){
+        for (int j = 0; j < taille; j++)
         {
-            printf("|%c", tab[i*TAILLE_TAB+j]);
+            printf("|%c", tab[i*taille+j]);
         }
-        printf("|\n +-+-+\n");
+        printf("|\n+");
+        
+        for (int i = 0; i < taille; i++){
+            printf("-+");
+        }
+        printf("\n");    
     }
 }
 
