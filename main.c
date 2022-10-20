@@ -18,13 +18,13 @@ void pvp(){
 
         printf("C'est au tour du joueur %d\n", tour%2 + 1);
         fgets(choix, MAX_ENTREE, stdin);
-        case_joue = choix[0] - '0' - 1;
+        case_joue = atoi(choix) - 1;
         while (poserCase(case_joue, tab, joueur[tour%2])){
             system("clear");
             printf("La case est déjà prise\n");
             afficheTab(tab, taille_tab);
             fgets(choix, MAX_ENTREE, stdin);
-            case_joue = choix[0] - '0' + 1;
+            case_joue = atoi(choix) - 1;
         }
     }
     system("clear");
