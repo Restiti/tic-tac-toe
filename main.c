@@ -2,7 +2,7 @@
 #define MAX_ENTREE 80
 
 void pvp(){
-    int taille_tab = 3;
+    int taille_tab = 5;
     char* tab = malloc(sizeof(char) * taille_tab);
     initMap(tab, taille_tab);
 
@@ -44,7 +44,7 @@ void pvp(){
 }
 
 void pve(){
-    int taille_tab = 25;
+    int taille_tab = 5;
     char* tab = malloc(sizeof(char) * taille_tab);
     initMap(tab, taille_tab);
     int pions[] = {'X', 'O'};

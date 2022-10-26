@@ -10,42 +10,60 @@ int poserCase(int num_case, char* tab, char pion){
 }
 
 int partie_fini(char* tab, int num_case, char pion, int taille_tab, int tour){
-    
+    //match nul
     if(tour > taille_tab * taille_tab - 2) return 1;
-    
+    int ligne = (num_case/taille_tab)*taille_tab;
+    int colonne = num_case%taille_tab;
     //Ligne
-
-    if(num_case%taille_tab == 0){
-        if(tab[num_case+1] == pion && tab[num_case+2] == pion){
-            return -1;
-        }   
-    }else if(num_case%taille_tab == taille_tab-1){
-        if(tab[num_case-1] == pion && tab[num_case-2] == pion){
-            return -1;
+    int cpt = 0;
+    for(int i=ligne;i<ligne+taille_tab;i++){
+        if(tab[i] == pion ){
+            cpt += 1 ;
         }
-    }else if(tab[num_case-1] == pion && tab[num_case+1] == pion){
+    }
+    if(cpt == taille_tab){
+            return -1;
+    }
+
+
+
+
+    //Colonne
+    cpt = 0;
+    for(int i=colonne;i< taille_tab*taille_tab;i+=taille_tab){
+        if(tab[i] == pion){
+            cpt +=1;
+        }
+    }
+
+    if(cpt == taille_tab){
         return -1;
     }
 
-    //Colonne
-    if(num_case/taille_tab == 0){
-        if(tab[num_case+ taille_tab] == pion && tab[num_case + 2 * taille_tab] == pion){
-            return -1;
-        }
-    }else if(num_case/taille_tab == taille_tab-1){
-        if(tab[num_case-1*taille_tab] == pion && tab[num_case-2*taille_tab] == pion){
-            return -1;
-        }
-    }else if(tab[num_case-1*taille_tab] == pion && tab[num_case+1*taille_tab] == pion){
-            return -1;
-        
-    }
-    //Diagonale
-    /*
-    if (num_case == 5){
 
+    //Diagonale
+    cpt = 0;
+    for(int i=0;i<taille_tab*taille_tab;i+=taille_tab+1){
+        if(tab[i] == pion){
+            cpt += 1;
+        }
     }
-    */
+
+    if(cpt == taille_tab){
+        return -1;
+    }
+
+    cpt = 0;
+
+    for(int i=taille_tab-1;i<taille_tab*taille_tab;i+=taille_tab-1){
+        if(tab[i] == pion){
+            cpt +=1;
+        }
+    }
+
+    if(cpt == taille_tab){
+        return -1;
+    }
     
     return 0;
 }
