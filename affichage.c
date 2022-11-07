@@ -1,6 +1,6 @@
 #include "affichage.h"
 #include "main.h"
-
+ 
 void afficheTab(char* tab,int taille){
     printf("+");
     for (int i = 0; i < taille; i++)

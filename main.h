@@ -5,6 +5,17 @@
 #include <sys/wait.h>
 #include <string.h>
 #include <time.h>
+#include <pthread.h>
+
+pthread_mutex_t verrou;
+struct info_jeu {
+    char* map;
+    int taille_map;
+    int derniere_case_joue;
+    int tour;
+    int nb_partie;
+    int partie_fini;
+} ;  
 
 #include "affichage.h"
 #include "action.h"
