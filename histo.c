@@ -64,7 +64,7 @@ void deroule_partie(char* nom_fichier){
   
   for (int i = 0; i < nb_tour; i++){
     printf("Partie %d\n", i);
-    struct info_jeu game = initInfoJeu();
+    struct info_jeu game = initInfoJeu(taille_map);
     int case_file = 0;
     char pion_file = ' ';
     

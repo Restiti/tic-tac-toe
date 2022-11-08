@@ -76,8 +76,7 @@ void initMap(char* tab, int taille){
     }
 }
 
-struct info_jeu initInfoJeu(){
-    int taille_map = 3;
+struct info_jeu initInfoJeu(int taille_map){
 
     struct info_jeu* info = malloc(
         sizeof(char) * (taille_map * taille_map)
@@ -128,9 +127,9 @@ void *play_iavsia(void *data){
 }
 
 
-int deroulement_ia_vs_ia(char* fichier){
+int deroulement_ia_vs_ia(char* fichier, int taille_map){
     
-    struct info_jeu game = initInfoJeu();
+    struct info_jeu game = initInfoJeu(taille_map);
     pthread_t bot1, bot2;
     game.fichier = fichier;
     pthread_mutex_init(&verrou, NULL);

@@ -3,11 +3,13 @@
 
 
 void pvp(){
-    struct info_jeu game = initInfoJeu();
+    int taille_carte = 5;
+
+
+    struct info_jeu game = initInfoJeu(taille_carte);
     int joueur[] = {'X', 'O'};
     char choix[512] = ""; 
 
-    int taille_carte = 3;
     char fichier[74] = "";
 
     genere_fichier(fichier, TAILLE_NOM, taille_carte);
@@ -50,13 +52,14 @@ void pvp(){
 }
 
 void pve(){
-    struct info_jeu game = initInfoJeu();
+    int taille_carte = 5;
+
+    struct info_jeu game = initInfoJeu(taille_carte);
     int pions[] = {'X', 'O'};
     srand(time(NULL));
     int tourJoueur = rand()%2;
     char choix[512] = ""; 
 
-    int taille_carte = 3;
     char fichier[74] = "";
 
     genere_fichier(fichier, TAILLE_NOM, taille_carte);
@@ -115,7 +118,7 @@ void pve(){
 
 void iaVSia(){
     srand(time(NULL));
-    int nbPartie = 1000;
+    int nbPartie = 100;
     int *resultat = malloc(nbPartie * sizeof(int));
 
     //Faire la fonction qui demande la taille de la map
@@ -127,7 +130,7 @@ void iaVSia(){
     save_entete(fichier, taille_carte, nbPartie);
 
     for (int i = 0; i < nbPartie; i++){
-        int res = deroulement_ia_vs_ia(fichier);
+        int res = deroulement_ia_vs_ia(fichier, taille_carte);
         *(resultat+i)=res;
     }
     deroule_partie(fichier);
