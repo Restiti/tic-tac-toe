@@ -89,10 +89,12 @@ struct info_jeu initInfoJeu(){
     info->nb_partie = 10;
     info->map=malloc(sizeof(char) * (taille_map * taille_map));
     info->partie_fini=0;
+    info->fichier= malloc(sizeof(char) * 64 );
     initMap(info->map, info->taille_map);
 
     return *info;
 }
+
 
 void *play_iavsia(void *data){
     //struct info_jeu *game = data;
@@ -102,7 +104,9 @@ void *play_iavsia(void *data){
 
             pthread_mutex_lock(&verrou);
             if(game->partie_fini){
+                enregistre_case(-1, 'F', game->fichier);
                 pthread_mutex_unlock(&verrou);
+
                 return NULL;
             }
             ++game->tour;
@@ -114,6 +118,7 @@ void *play_iavsia(void *data){
                 n = rand()%(game->taille_map*game->taille_map);
                 game->derniere_case_joue = n;
             }
+            enregistre_case(game->derniere_case_joue, pions[game->tour%2], game->fichier);
             game->partie_fini = (partie_fini(game->map, game->derniere_case_joue, 
                                         pions[game->tour%2], game->taille_map, game->tour));
         pthread_mutex_unlock(&verrou);
@@ -123,12 +128,11 @@ void *play_iavsia(void *data){
 }
 
 
-int deroulement_ia_vs_ia(){
-
+int deroulement_ia_vs_ia(char* fichier){
+    
     struct info_jeu game = initInfoJeu();
     pthread_t bot1, bot2;
-
-
+    game.fichier = fichier;
     pthread_mutex_init(&verrou, NULL);
 
     pthread_create(&bot1, NULL, play_iavsia, (void *) &game );
@@ -138,8 +142,6 @@ int deroulement_ia_vs_ia(){
     pthread_join(bot2, NULL);
 
     pthread_mutex_destroy(&verrou);
-    
-    
     if (game.partie_fini == -1){
         return game.tour%2;
     }else{

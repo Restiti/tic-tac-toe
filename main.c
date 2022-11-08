@@ -6,9 +6,17 @@ void pvp(){
     struct info_jeu game = initInfoJeu();
     int joueur[] = {'X', 'O'};
     char choix[512] = ""; 
+
+    int taille_carte = 3;
+    char fichier[74] = "";
+
+    genere_fichier(fichier, TAILLE_NOM, taille_carte);
+
+    save_entete(fichier, taille_carte, 1);
+    game.fichier = fichier;
     while (!partie_fini(game.map , game.derniere_case_joue, joueur[game.tour%2], game.taille_map, game.tour)){
         ++game.tour;
-        system("clear");
+        //system("clear");
         afficheTab(game.map, game.taille_map);
 
         printf("C'est au tour du joueur %d\n", game.tour%2 + 1);
@@ -27,8 +35,10 @@ void pvp(){
             game.derniere_case_joue = atoi(choix) - 1;
             is_numeric = game.derniere_case_joue > 0 && game.derniere_case_joue < game.taille_map * game.taille_map -2;
         }
-    }
+        enregistre_case(game.derniere_case_joue, joueur[game.tour%2], game.fichier);
 
+    }
+    enregistre_case(-1, 'F', game.fichier);
     system("clear");
     afficheTab(game.map, game.taille_map);
     if (partie_fini(game.map, game.derniere_case_joue, joueur[game.tour%2], game.taille_map, game.tour) == -1)
@@ -46,6 +56,14 @@ void pve(){
     int tourJoueur = rand()%2;
     char choix[512] = ""; 
 
+    int taille_carte = 3;
+    char fichier[74] = "";
+
+    genere_fichier(fichier, TAILLE_NOM, taille_carte);
+
+    save_entete(fichier, taille_carte, 1);
+    game.fichier = fichier;
+    
     while (!partie_fini(game.map, game.derniere_case_joue, pions[game.tour%2], game.taille_map, game.tour)){
         ++game.tour;
         system("clear");
@@ -81,7 +99,10 @@ void pve(){
                 afficheTab(game.map, game.taille_map);
             }
         }
+        enregistre_case(game.derniere_case_joue, pions[game.tour%2], game.fichier);
+
     }
+    enregistre_case(-1, 'F', game.fichier);
     system("clear");
 
     afficheTab(game.map, game.taille_map);
@@ -94,13 +115,23 @@ void pve(){
 
 void iaVSia(){
     srand(time(NULL));
-    int nbPartie = 100;
+    int nbPartie = 1000;
     int *resultat = malloc(nbPartie * sizeof(int));
 
+    //Faire la fonction qui demande la taille de la map
+    int taille_carte = 3;
+    char fichier[74] = "";
+
+    genere_fichier(fichier, TAILLE_NOM, taille_carte);
+
+    save_entete(fichier, taille_carte, nbPartie);
+
     for (int i = 0; i < nbPartie; i++){
-        int res = deroulement_ia_vs_ia();
+        int res = deroulement_ia_vs_ia(fichier);
         *(resultat+i)=res;
     }
+    deroule_partie(fichier);
+
     int nbEgalite = 0;
     int winJ1 = 0;
     int winJ2 = 0;
@@ -125,6 +156,31 @@ void iaVSia(){
     printf("Win J2    : %d\n", winJ2);
 
 }
+void charge_partie(){
+    FILE* fichier;
+    char choix[512] = ""; 
+    char cmd[50];
+    char nom_file[70];
+
+    system("ls save| tr ' ' '\n' | nl ");
+    
+    fgets(choix, MAX_ENTREE, stdin);
+    int num_fichier = atoi(choix);
+    printf("FIchier numero %d\n", num_fichier);
+    sprintf(cmd, "ls save | tr ' ' '\\n' | head -n %d | tail -n 1", num_fichier);
+
+    fichier = popen(cmd, "r");
+    fscanf(fichier, "%s", nom_file);
+    fclose(fichier);
+    
+    char chemin[] = "save/";
+    strcat(chemin, nom_file);
+    strcpy(nom_file, chemin);
+    
+    deroule_partie(nom_file);
+}
+
+
 
 int main(void){
     
@@ -134,14 +190,16 @@ int main(void){
         system("clear");
         menu();
         fgets(choix, MAX_ENTREE, stdin);
-    }while (!strstr(choix, "1")  && !strstr(choix, "2")  && !strstr(choix, "3") );
+    }while (!strstr(choix, "1")  && !strstr(choix, "2")  && !strstr(choix, "3") && !strstr(choix, "4") );
 
     if (strstr(choix, "1")){
         pvp();
     }else if (strstr(choix, "2")){
         pve();
-    }else{
+    }else if(strstr(choix, "3")){
         iaVSia();
+    }else{
+        charge_partie();
     }
 
 

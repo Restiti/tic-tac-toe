@@ -6,6 +6,9 @@
 #include <string.h>
 #include <time.h>
 #include <pthread.h>
+#include <fcntl.h>
+
+#define TAILLE_NOM 64
 
 pthread_mutex_t verrou;
 struct info_jeu {
@@ -15,7 +18,9 @@ struct info_jeu {
     int tour;
     int nb_partie;
     int partie_fini;
+    char* fichier;
 } ;  
 
 #include "affichage.h"
 #include "action.h"
+#include "histo.h"

@@ -27,4 +27,5 @@ void afficheTab(char* tab,int taille){
 void menu(){
     printf("Bienvenue sur le jeu du TIC-TAC-TOE\n");
     printf("1. Partie 1VS1\n2. Joueur VS Ordinateur\n3. Ordinateur VS Ordinateur\n");
+    printf("4. Historique de parties\n");
 }

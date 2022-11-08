@@ -1,3 +1,4 @@
-main.o: main.c main.h affichage.h action.h
-action.o: action.c main.h affichage.h action.h
-affichage.o: affichage.c affichage.h main.h action.h
+histo.o: histo.c main.h affichage.h action.h histo.h
+main.o: main.c main.h affichage.h action.h histo.h
+action.o: action.c main.h affichage.h action.h histo.h
+affichage.o: affichage.c affichage.h main.h action.h histo.h
