@@ -105,12 +105,10 @@ void *play_iavsia(void *data){
             if(game->partie_fini){
                 enregistre_case(-1, 'F', game->fichier);
                 pthread_mutex_unlock(&verrou);
-
                 return NULL;
             }
             ++game->tour;
 
-            
             int n = rand()%(game->taille_map*game->taille_map);
             game->derniere_case_joue = n;
             while (poserCase(game->derniere_case_joue, game->map, pions[game->tour%2])){
@@ -141,8 +139,12 @@ int deroulement_ia_vs_ia(char* fichier, int taille_map){
     pthread_join(bot2, NULL);
 
     pthread_mutex_destroy(&verrou);
-    if (game.partie_fini == -1){
-        return game.tour%2;
+
+    int partie_fini = game.partie_fini;
+    int tour = game.tour;
+
+    if (partie_fini == -1){
+        return tour%2;
     }else{
         return -1;
     }

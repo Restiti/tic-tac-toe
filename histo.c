@@ -11,14 +11,8 @@ void genere_fichier(char* nom, int taille, int tailleCarte){
       strcpy(nom, chemin);
       FILE* fichier = fopen(nom, "a");
       printf("%d\n", tailleCarte);
-      if (fichier != NULL){
-        // On peut écrire dans le fichier
-        
-    }
-    else{
-        // On affiche un message d'erreur si on veut
-        //printf("Probleme pour sauvegarder le fichier %s\n", date);
-    }
+
+
       fclose(fichier);
 }
 
@@ -40,7 +34,6 @@ void save_entete(char* fichier_name, int taille_carte, int nb_partie){
 void enregistre_case(int case_joue, char pion, char* fichier_name){
   FILE* fichier = NULL;
   fichier = fopen(fichier_name, "a");
-  
   char text[20];
   sprintf(text, "%d - %c\n", case_joue, pion);   
 
@@ -70,13 +63,12 @@ void deroule_partie(char* nom_fichier){
     
     while (case_file != -1 && pion_file != 'F'){
       game.tour++;
-      printf("Tour %d\n", game.tour);
       fscanf(fichier, "%d - %c\n", &case_file, &pion_file);
       //printf("Case : %d - Pion : %c\n", case_file, pion_file);
       poserCase(case_file, game.map, pion_file);
-          afficheTab(game.map, taille_map);
-
     }
+    afficheTab(game.map, taille_map);
+
   }
   
   
