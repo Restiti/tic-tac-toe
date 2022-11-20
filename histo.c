@@ -64,7 +64,6 @@ void deroule_partie(char* nom_fichier){
     while (case_file != -1 && pion_file != 'F'){
       game.tour++;
       fscanf(fichier, "%d - %c\n", &case_file, &pion_file);
-      //printf("Case : %d - Pion : %c\n", case_file, pion_file);
       poserCase(case_file, game.map, pion_file);
     }
     afficheTab(game.map, taille_map);

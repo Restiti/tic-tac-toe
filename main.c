@@ -1,17 +1,14 @@
 #include "main.h"
-#define MAX_ENTREE 80
 
 
 void pvp(){
 
-    int taille_carte = 5;
-    printf("Taille de la carte?\n");
-    scanf("%d", &taille_carte);
+    int taille_carte = ask_taille_carte();
+
 
     struct info_jeu game = initInfoJeu(taille_carte);
     int joueur[] = {'X', 'O'};
     char choix[512] = ""; 
-    fgets(choix, MAX_ENTREE, stdin);
 
     char fichier[74] = "";
 
@@ -56,16 +53,14 @@ void pvp(){
 
 void pve(){
 
-    int taille_carte = 5;
-    printf("Taille de la carte?\n");
-    scanf("%d", &taille_carte);
+    int taille_carte = ask_taille_carte();
+
 
     struct info_jeu game = initInfoJeu(taille_carte);
     int pions[] = {'X', 'O'};
     srand(time(NULL));
     int tourJoueur = rand()%2;
     char choix[512] = ""; 
-    fgets(choix, MAX_ENTREE, stdin);
 
     char fichier[74] = "";
 
@@ -125,17 +120,13 @@ void pve(){
 
 void iaVSia(){
     srand(time(NULL));
-    int nbPartie = 10000000;
-
-    printf("Nombre de partie?\n");
-    scanf("%d", &nbPartie);
+    int nbPartie = ask_nb_partie();
 
     int *resultat = malloc(nbPartie * sizeof(int));
     
     //Faire la fonction qui demande la taille de la map
-    int taille_carte = 3;
-    printf("Taille de la carte?\n");
-    scanf("%d", &taille_carte);
+    int taille_carte = ask_taille_carte();
+
     char fichier[74] = "";
 
     genere_fichier(fichier, TAILLE_NOM, taille_carte);
@@ -143,11 +134,9 @@ void iaVSia(){
     save_entete(fichier, taille_carte, nbPartie);
 
     for (int i = 0; i < nbPartie; i++){
-        printf("Partie %d\n", i);
         int res = deroulement_ia_vs_ia(fichier, taille_carte);
         *(resultat+i)=res; 
     }
-    //deroule_partie(fichier);
 
     int nbEgalite = 0;
     int winJ1 = 0;

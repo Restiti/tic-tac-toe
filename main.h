@@ -9,6 +9,7 @@
 #include <fcntl.h>
 
 #define TAILLE_NOM 64
+#define MAX_ENTREE 80
 
 pthread_mutex_t verrou;
 struct info_jeu {
